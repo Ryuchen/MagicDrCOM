@@ -19,7 +19,7 @@
 
 ### 📖 安装说明
 
-##### 如何安装：
+#### 如何安装：
 
 使用pip安装
 
@@ -29,7 +29,7 @@
 
 `git clone https://github.com/Ryuchen/MagicDrCOM.git`
 
-##### 如何使用：
+#### 如何使用：
 
 + 图形界面模式
 
