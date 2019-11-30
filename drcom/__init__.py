@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ==================================================
-# @Author : Copyright@Ryuchen
+# Licensed under the GPLv3
+# 本项目由@Ryuchen开发维护，使用Python3.7
 # ==================================================

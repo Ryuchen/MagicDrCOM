@@ -11,6 +11,15 @@ class DrCOMException(Exception):
         super(DrCOMException, self).__init__(args, kwargs)
         if len(args[0]) > 0:
             self.info = args[0]
+        self.last_pkg = None
+
+
+class TimeoutException(Exception):
+    def __init__(self, *args, **kwargs):
+        super(TimeoutException, self).__init__(args, kwargs)
+        if len(args[0]) > 0:
+            self.info = args[0]
+        self.last_pkg = None
 
 
 class MagicDrCOMException(Exception):
@@ -18,10 +27,3 @@ class MagicDrCOMException(Exception):
         super(MagicDrCOMException, self).__init__(args, kwargs)
         if len(args[0]) > 0:
             self.info = args[0]
-
-
-class TimeoutException(Exception):
-    def __init__(self, *args, **kwargs):
-        super(TimeoutException, self).__init__(args, kwargs)
-        self.info = args[0]
-        self.last_pkg = None

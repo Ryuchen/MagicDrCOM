@@ -4,9 +4,40 @@
 # Licensed under the GPLv3
 # 本项目由@Ryuchen开发维护，使用Python3.7
 # ==================================================
+import uuid
 import socket
 import struct
 import hashlib
+
+
+def mac():
+    """
+    获取本机mac地址
+    :return:
+    """
+    return uuid.UUID(int=uuid.getnode()).hex[-12:]
+
+
+def hostname():
+    """
+    获取本机主机名称
+    :return:
+    """
+    return socket.getfqdn(socket.gethostname())
+
+
+def ipaddress():
+    """
+    获取当前联网的IP地址
+    :return:
+    """
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(('114.114.114.114', 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip
 
 
 def md5(string):

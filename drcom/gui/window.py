@@ -4,14 +4,14 @@
 # Licensed under the GPLv3
 # 本项目由@Ryuchen开发维护，使用Python3.7
 # ==================================================
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowTitle("Magic-Dr.COM[@Ryuchen]")
-        MainWindow.resize(260, 330)
+        MainWindow.resize(360, 330)
         MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
         MainWindow.setFixedSize(MainWindow.width(), MainWindow.height())
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -20,14 +20,18 @@ class Ui_MainWindow(object):
 
         self.topVerticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.topVerticalLayoutWidget.setObjectName("topVerticalLayoutWidget")
-        self.topVerticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 260, 330))
+        self.topVerticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 360, 330))
         self.topVerticalLayout = QtWidgets.QVBoxLayout(self.topVerticalLayoutWidget)
         self.topVerticalLayout.setObjectName("topVerticalLayout")
         self.topVerticalLayout.setContentsMargins(0, 0, 0, 0)
 
         self.topLabel = QtWidgets.QLabel(self.topVerticalLayoutWidget)
         self.topLabel.setObjectName("topLabel")
-        self.topLabel.setText("DrCOM第三方登录器")
+        self.topLabel.setText("Dr.COM 第三方登录器")
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        font.setBold(True)
+        self.topLabel.setFont(font)
         self.topLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.topVerticalLayout.addWidget(self.topLabel)
         self.line0 = QtWidgets.QFrame(self.topVerticalLayoutWidget)
@@ -51,7 +55,7 @@ class Ui_MainWindow(object):
         self.logTextBrowser.setLineWrapMode(QtWidgets.QTextBrowser.NoWrap)
         self.topVerticalLayout.addWidget(self.logTextBrowser)
 
-        spacerItem0 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem0 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout0.addItem(spacerItem0, 0, 0, 2, 1)
         self.userNameLabel = QtWidgets.QLabel(self.topVerticalLayoutWidget)
         self.userNameLabel.setObjectName("userNameLabel")
@@ -68,10 +72,10 @@ class Ui_MainWindow(object):
         self.passwordLineEdit.setObjectName("passwordLineEdit")
         self.passwordLineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.gridLayout0.addWidget(self.passwordLineEdit, 1, 2, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout0.addItem(spacerItem1, 0, 3, 2, 1)
 
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout1.addItem(spacerItem2, 0, 1, 1, 1)
         self.retryCheckBox = QtWidgets.QCheckBox(self.topVerticalLayoutWidget)
         self.retryCheckBox.setObjectName("retryCheckBox")
@@ -108,7 +112,7 @@ class Ui_MainWindow(object):
         self.loginButton = QtWidgets.QPushButton(self.topVerticalLayoutWidget)
         self.loginButton.setObjectName("loginButton")
         self.gridLayout1.addWidget(self.loginButton, 2, 2, 1, 4)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout1.addItem(spacerItem3, 0, 6, 1, 1)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)

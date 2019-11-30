@@ -9,10 +9,10 @@ import logging
 
 
 # local config
-USERNAME = "2019020535"
-PASSWORD = "071816"
+USERNAME = ""
+PASSWORD = ""
+LOCAL_IP = ""  # 选填，默认为空，应填写本机IP，如：192.168.100.123
 LOCAL_MAC = ""  # 选填，默认为空，应填写本机网卡MAC，全小写，无连接符，如：001a264a7b0d
-LOCAL_IP = "10.1.89.206"  # 选填，默认为空，应填写本机IP，如：192.168.100.123
 
 
 # app config
@@ -20,7 +20,7 @@ ReTryTimes = 3
 ReLoginFlag = True
 ReLoginTimes = 3
 ReLoginCheck = 30
-LOG_LEVEL = logging.DEBUG
+LOG_LEVEL = logging.INFO
 
 
 # login config
@@ -32,3 +32,8 @@ ADAPTER_NUMBER = b'\x01'
 IP_DOG = b'\x01'
 AUTH_VERSION = b'\x0a\x00'
 KEEP_ALIVE_VERSION = b'\xdc\x02'
+
+# 状态声明参数
+DIEOUT = 2
+ONLINE = 1
+OFFLINE = 0

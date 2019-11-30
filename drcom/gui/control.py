@@ -6,14 +6,13 @@
 # ==================================================
 
 import sys
-import json
 import time
+import json
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import QDir
 from PyQt5.QtCore import QObject
 from PyQt5.QtGui import QTextCursor
-
 
 from drcom.gui.window import MainWindow
 from drcom.main.client import MagicDrCOMClient
@@ -53,17 +52,16 @@ class MainWindowController:
         self.save_user_config()
 
     def login(self):
+        self._client.reset()
         self._client.username = self._window.usernameLineEdit.text()
         self._client.password = self._window.passwordLineEdit.text()
-        self._client.login_flag = True
         self.save_user_config()
         self._client.login()
         self.update()
 
     def logout(self):
-        self._client.login_flag = False
-        time.sleep(self._client.relogin_check)
         self._client.logout()
+        time.sleep(3)
         self.update()
 
     def load_user_config(self):
@@ -108,7 +106,7 @@ class MainWindowController:
         f.close()
 
     def update(self):
-        if self._client.status == "offline":
+        if not self._client.status:
             self._window.usernameLineEdit.setEnabled(True)
             self._window.passwordLineEdit.setEnabled(True)
             self._window.remPasswdCheckBox.setEnabled(True)
