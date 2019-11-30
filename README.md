@@ -17,9 +17,9 @@
 
 本登陆器有图形界面和命令行两种运行模式，图形界面基于PyQt5实现，可跨平台运行，在路由器上可以以命令行模式运行。
 
-### 安装
+### 📖 安装说明
 
-如何安装：
+##### 如何安装：
 
 使用pip安装
 
@@ -29,34 +29,34 @@
 
 `git clone https://github.com/Ryuchen/MagicDrCOM.git`
 
-如何使用：
+##### 如何使用：
 
-图形界面模式
++ 图形界面模式
 
-+ Windows 下
-    > 安装构建好的 MagicDrCOM.exe 程序即可
-
-+ Linux 下
-    > `pip install MagicDrCOM` 安装完成之后，运行 `python3 -m drcom` 即可
+    + Windows 下
+        > 安装构建好的 MagicDrCOM.exe 程序即可
     
-+ MacOS 下
-    > 将构建好的 MagicDrCOM.zip 解压后得到 MagicDrCOM.app 拖入应用程序文件夹下即可
+    + Linux 下
+        > `pip install MagicDrCOM` 安装完成之后，运行 `python3 -m drcom` 即可
+        
+    + MacOS 下
+        > 将构建好的 MagicDrCOM.zip 解压后得到 MagicDrCOM.app 拖入应用程序文件夹下即可
 
-命令行模式
++ 命令行模式
 
-+ *所有平台* 下面执行下述命令：
-
-    ```BASH
-    git clone https://github.com/Ryuchen/MagicDrCOM.git
+    + *所有平台* 下面执行下述命令：
     
-    cd MagicDrCOM
-    
-    # 修改 drcom/configs/settings.py 文件中 PASSWORD 和 USERNAME 字段
-    
-    python3 drcom/client.py
-    ```
+        ```BASH
+        git clone https://github.com/Ryuchen/MagicDrCOM.git
+        
+        cd MagicDrCOM
+        
+        # 修改 drcom/configs/settings.py 文件中 PASSWORD 和 USERNAME 字段
+        
+        python3 drcom/client.py
+        ```
 
-### 📖 说明
+### 📖 使用说明
 
 重试次数：该客户端检测到网络断开后会自动重连，最大尝试重连次数
 
