@@ -1,90 +1,153 @@
-MagicDrCOM （基于python3的第三方Dr.COM登录器）
-=====================================================================
+.. raw:: html
 
-:Author: Ryuchen
-:Version: v1.0.0
-:Copyright: GNU General Public License v3.0
-
-.. contents::
-
-本项目之前由[@EverybodyLies]进行开发和维护(目前该项目已经停止维护)
-现阶段，因本人[@Ryuchen]进入北信科进行研究生学习，由于使用Mac电脑进行开发，为了方便登录校园网，所以发现和承接了该项目进行后续开发和维护
-
-.. Note:: 本登陆器有图形界面和命令行两种运行模式，图形界面基于PyQt5实现，可跨平台运行，在路由器上可以以命令行模式运行
+   <h1 align="center">MagicDrCOM （基于python3的第三方Dr.COM登录器）</h1>
 
 
-How to Install
----------------------------------------------
+🏠 `个人小栈 <https://ryuchen.github.io/>`__
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    > 未来更新的说明会刊登在这里，并且会不定时分享部分内容和心得
+
+📎 项目说明:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+本项目之前由\ `@EverybodyLies <https://github.com/Everyb0dyLies>`__\ 进行开发和维护(目前该项目已经停止维护)
+
+现阶段，因本人\ `@Ryuchen <https://github.com/Ryuchen>`__\ 进入北信科进行研究生学习，由于使用Mac电脑进行开发，为了方便登录校园网，所以发现和承接了该项目进行后续开发和维护
+
+本登陆器有图形界面和命令行两种运行模式，图形界面基于PyQt5实现，可跨平台运行，在路由器上可以以命令行模式运行。
+
+📖 安装说明
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+如何安装：
+^^^^^^^^^^
 
 使用pip安装
 
-- pip install MagicDrCOM
+``pip install MagicDrCOM``
 
 或从GitHub获取
 
-- git clone https://github.com/Ryuchen/MagicDrCOM.git
+``git clone https://github.com/Ryuchen/MagicDrCOM.git``
+
+如何使用：
+^^^^^^^^^^
+
+-  图形界面模式
+
+   -  | Windows 下
+      |  > 安装构建好的 MagicDrCOM.exe 程序即可
+
+   -  | Linux 下
+      |  > ``pip install MagicDrCOM`` 安装完成之后，运行 ``python3 -m drcom`` 即可
+
+   -  | MacOS 下
+      |  > 将构建好的 MagicDrCOM.zip 解压后得到 MagicDrCOM.app 拖入应用程序文件夹下即可
+
+-  命令行模式
+
+   -  *所有平台* 下面执行下述命令：
+
+      .. code::
+
+          git clone https://github.com/Ryuchen/MagicDrCOM.git
+
+          cd MagicDrCOM
+
+          # 修改 drcom/configs/settings.py 文件中 PASSWORD 和 USERNAME 字段
+
+          python3 drcom/client.py
+
+📖 使用说明
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+重试次数：该客户端检测到网络断开后会自动重连，最大尝试重连次数
+
+检查时间：该客户端会根据设定时间间隔自动尝试访问DNS服务器，检测网络连通性
+
+构建脚本说明
+
+.. code::
+
+    # 需要在不同的平台下面进行构建
+    # MacOS 下面 icon 图标使用 app.icns
+    # Windos和Linux 使用 app.ico
+
+    # MacOS 或者 Linux 下
+    pyinstaller -F --icon=./resources/app.icns --noconsole drcom/MagicDrCOM.py
+
+    # Windows PowerShell 下
+    pyinstaller -F --icon=.\resources\app.ico --noconsole .\drcom\MagicDrCOM.py
+
+❔ 提交ISSUE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+欢迎大家在issue提交bug，我会尽量跟进并尽可能及时修复，如果大神比较着急，自己修改代码，也欢迎发送pull
+requests。
+
+如果你不能登录，或中途闪退，请发issue的时候详细描述bug出现之前的每一步具体操作和软件崩溃的表现行为，以及操作系统和运行环境，如果可能请附上INFO级日志输出。
+
+**请不要提交无效的issue！**
+
+`提问的智慧 <https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md>`__\ ，不负责教授基础操作！
+
+👤 作者介绍
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ryuchen ( 陈 浩 )
+
+-  Github: `https://github.com/Ryuchen <https://github.com/Ryuchen>`__
+-  Email: `chenhaom1993@hotmail.com <chenhaom1993@hotmail.com>`__
+-  QQ: 455480366
+-  微信: Chen\_laws
+
+Nameplace ( 虚位以待 )
+
+⭐ 渴望支持
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| 如果你想继续观察 MagicDrCOM 接下来的走向，请给我们一个 ⭐ 这是对于我们最大的鼓励。
+
+| 此外，如果你觉得 MagicDrCOM对你有帮助，你可以赞助我们一杯咖啡，鼓励我们继续开发维护下去。
 
 
-How to Use
----------------------------------------------
+- **微信**
 
-- 图形界面模式
+  |扫码赞助1|
 
-- Windows 下
+- **支付宝**
 
-  安装构建好的 MagicDrCOM.exe 程序即可
+  |扫码赞助2|
 
-- Linux 下
+🤝 贡献源码
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  pip install MagicDrCOM 安装完成之后，运行 python3 -m drcom 即可
+本项目参考了以下项目，顺序不分先后
 
-- MacOS 下
+drcoms/drcom-generic，\ https://github.com/drcoms/drcom-generic
 
-  将构建好的 MagicDrCOM.zip 解压后得到 MagicDrCOM.app 拖入应用程序文件夹下即可
+coverxit/EasyDrcom，\ https://github.com/coverxit/EasyDrcom/
 
-- 命令行模式
+mchome/dogcom，\ https://github.com/mchome/dogcom
 
-  所有平台下面执行下述命令：
+dantmnf/drcom-client，\ https://github.com/dantmnf/drcom-client
 
-  git clone https://github.com/Ryuchen/MagicDrCOM.git
+非常感谢这些前辈，如果没有他们，本项目很难开展
 
-  cd MagicDrCOM
+Contributions, issues and feature requests are welcome!
 
-  修改 drcom/configs/settings.py 文件中 PASSWORD 和 USERNAME 字段
+Feel free to check `issues
+page <https://github.com/Ryuchen/MagicDrCOM/issues>`__.
 
-  python3 drcom/client.py
+📖 License
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+MagicDrCOM is licensed under the GNU General Public License v3.0
 
-Usage Description
----------------------------------------------
+重申本代码仅用于实验和学习，使用者的一切商业行为及非法行为皆由其本人承担责任
 
-- 重试次数：该客户端检测到网络断开后会自动重连，最大尝试重连次数
-
-- 检查时间：该客户端会根据设定时间间隔自动尝试访问DNS服务器，检测网络连通性
-
-- 构建脚本说明
-
-  - 需要在不同的平台下面进行构建;
-
-  - MacOS 下面 icon 图标使用 app.icns;
-
-  - Windos和Linux 使用 app.ico;
-
-- MacOS 或者 Linux 下
-
-  pyinstaller -F --icon=./resources/app.icns --noconsole drcom/MagicDrCOM.py
-
-- Windows PowerShell 下
-
-  pyinstaller -F --icon=.\resources\app.ico --noconsole .\drcom\MagicDrCOM.py
-
-
-Author Description
----------------------------------------------
-
-Ryuchen (陈 浩)
-
-- Github: https://github.com/Ryuchen
-- Email: chenhaom1993@hotmail.com
-- QQ: 455480366
-- 微信: Chen_laws
+.. |扫码赞助1| image:: https://github.com/Ryuchen/Panda-Sandbox/raw/master/docs/sponsor/wechat.jpg
+.. |扫码赞助2| image:: https://github.com/Ryuchen/Panda-Sandbox/raw/master/docs/sponsor/alipay.jpg

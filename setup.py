@@ -2,17 +2,18 @@
 
 from setuptools import setup, find_packages
 
-with open("README.rst", "r") as fh:
+with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
     name='MagicDrCOM',
     version='1.0.0',
-    description='一款第三方Dr.COM登陆器',
+    description='3rd DrCOM client',
     author='ryuchen',
     author_email='chenhaom1993@hotmail.com',
     maintainer='Ryuchen',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     maintainer_email='chenhaom1993@hotmail.com',
     license='GNU General Public License v3 (GPLv3)',
     packages=find_packages(),
