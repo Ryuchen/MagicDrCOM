@@ -1,9 +1,5 @@
-<h1 align="center">MagicDrCOM （基于python3的第三方Drcom登录器）</h1>
+<h1 align="center">MagicDrCOM （基于python3的第三方Dr.COM登录器）</h1>
 
-<p align="center">
-  [![PyPI version](https://img.shields.io/pypi/v/MagicDrCOM.svg)](https://pypi.python.org/pypi/MagicDrCOM)
-  <img src="https://img.shields.io/badge/language-python3-blue.svg?cacheSeconds=2592000" />
-</p>
 
 ### 🏠 [个人小栈](https://ryuchen.github.io/)
 
@@ -130,5 +126,6 @@ MagicDrCOM is licensed under the GNU General Public License v3.0
 
 重申本代码仅用于实验和学习，使用者的一切商业行为及非法行为皆由其本人承担责任
 
-
+[![PyPI version](https://img.shields.io/pypi/v/MagicDrCOM.svg)](https://pypi.python.org/pypi/MagicDrCOM)
+<img src="https://img.shields.io/badge/language-python3-blue.svg?cacheSeconds=2592000" />
 

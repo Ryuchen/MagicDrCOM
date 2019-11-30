@@ -2,22 +2,23 @@
 
 from setuptools import setup, find_packages
 
+with open("README.rst", "r") as fh:
+    long_description = fh.read()
 
 setup(
     name='MagicDrCOM',
     version='1.0.0',
-    description=(
-        '第三方DrCOM登陆器'
-    ),
-    long_description=open('README.md', 'rb').read().decode('utf8'),
+    description='一款第三方Dr.COM登陆器',
     author='Ryuchen',
     author_email='chenhaom1993@hotmail.com',
-    maintainer='Ryuchen',
+    maintainer='ryuchen',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     maintainer_email='chenhaom1993@hotmail.com',
     license='GNU General Public License v3 (GPLv3)',
     packages=find_packages(),
     platforms=["all"],
-    url='https://github.com/ryuchen/liarcom',
+    url='https://github.com/ryuchen/MagicDrCOM',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Natural Language :: Chinese (Simplified)',
@@ -29,11 +30,9 @@ setup(
         'Environment :: Win32 (MS Windows)',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7'
+        'Programming Language :: Python :: 3'
     ],
+    python_requires='>=3.6',
     install_requires=[
         'PyQt5'
     ]
