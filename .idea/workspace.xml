@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19af2d1f-3459-4074-9f9d-920fa342ab1a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/drcom/gui/style.qss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/drcom.ui" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +52,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -138,7 +138,7 @@
       <workItem from="1575379025730" duration="454000" />
       <workItem from="1575382984665" duration="107000" />
       <workItem from="1575423104972" duration="19571000" />
-      <workItem from="1575446530525" duration="2543000" />
+      <workItem from="1575446530525" duration="4341000" />
     </task>
     <servers />
   </component>
@@ -170,6 +170,10 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="744" y="382" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1575447670896" />
+    <state x="912" y="529" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1575449273772">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="912" y="529" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1440@0.0.2560.1440" timestamp="1575449273772" />
     <state x="910" y="494" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog" timestamp="1575347174853">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
@@ -182,35 +186,35 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1018" y="473" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1575446081025" />
-    <state width="2516" height="380" key="GridCell.Tab.0.bottom" timestamp="1575447930756">
+    <state width="2516" height="380" key="GridCell.Tab.0.bottom" timestamp="1575455367789">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.bottom/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074059" />
-    <state width="2516" height="380" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1575447930756" />
+    <state width="2516" height="380" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1575455367789" />
     <state width="1255" height="421" key="GridCell.Tab.0.bottom/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254190" />
-    <state width="2516" height="380" key="GridCell.Tab.0.center" timestamp="1575447930755">
+    <state width="2516" height="380" key="GridCell.Tab.0.center" timestamp="1575455367788">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.center/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074058" />
-    <state width="2516" height="380" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1575447930755" />
+    <state width="2516" height="380" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1575455367788" />
     <state width="1255" height="421" key="GridCell.Tab.0.center/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254189" />
-    <state width="2516" height="380" key="GridCell.Tab.0.left" timestamp="1575447930754">
+    <state width="2516" height="380" key="GridCell.Tab.0.left" timestamp="1575455367787">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.left/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074058" />
-    <state width="2516" height="380" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1575447930754" />
+    <state width="2516" height="380" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1575455367787" />
     <state width="1255" height="421" key="GridCell.Tab.0.left/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254188" />
-    <state width="2516" height="380" key="GridCell.Tab.0.right" timestamp="1575447930756">
+    <state width="2516" height="380" key="GridCell.Tab.0.right" timestamp="1575455367789">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.right/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074059" />
-    <state width="2516" height="380" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1575447930756" />
+    <state width="2516" height="380" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1575455367789" />
     <state width="1255" height="421" key="GridCell.Tab.0.right/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254189" />
-    <state x="608" y="299" key="SettingsEditor" timestamp="1575383053307">
-      <screen x="0" y="0" width="1920" height="1200" />
+    <state x="811" y="359" key="SettingsEditor" timestamp="1575449290983">
+      <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="608" y="299" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1575383053307" />
-    <state x="811" y="359" key="SettingsEditor/0.0.2560.1440@0.0.2560.1440" timestamp="1575347784685" />
+    <state x="811" y="359" key="SettingsEditor/0.0.2560.1440@0.0.2560.1440" timestamp="1575449290983" />
     <state x="943" y="329" width="672" height="678" key="search.everywhere.popup" timestamp="1575440178937">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
