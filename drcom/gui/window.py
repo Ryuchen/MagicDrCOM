@@ -5,6 +5,9 @@
 # 本项目由@Ryuchen开发维护，使用Python3.7
 # ==================================================
 
+import os
+import sys
+import json
 import time
 import socket
 
@@ -35,12 +38,16 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self._set_window_UI()
+        self._load_user_config()
+
         self.client = None
+
         self.alive_flag = False
         self.alive_Timer = QtCore.QTimer()
         self.alive_interval = 10 * 1000
         self.retry_Timer = QtCore.QTimer()
         self.retry_interval = 10 * 1000
+
         try:
             self.client = DrCOMClient()
             self.update()
@@ -209,6 +216,44 @@ class MainWindow(QtWidgets.QMainWindow):
         optionForm.setLayout(optionFormLayout)
         return optionForm
 
+    def _load_user_config(self):
+        currentPath = QtCore.QDir.currentPath()
+        if sys.platform in ["linux", "darwin"]:
+            settingPath = os.path.join(currentPath, ".settings.json")
+        else:
+            settingPath = os.path.join(currentPath, ".settings.json")
+
+        if not os.path.exists(settingPath):
+            return
+
+        with open(settingPath, "r") as userSetting:
+            setting = json.loads(userSetting.read())
+            self.retryTimesSpinBox.setValue(setting["relogin_times"])
+            self.retryCheckSpinBox.setValue(setting["relogin_check"])
+            self.retryCheckBox.setChecked(setting["relogin_flag"])
+            self.remPwdCheckBox.setChecked(setting["rem_pwd"])
+            if setting["rem_pwd"]:
+                self.usrLineEdit.setText(setting["usr"])
+                self.pwdLineEdit.setText(setting["pwd"])
+
+    def _save_user_config(self):
+        currentPath = QtCore.QDir.currentPath()
+        if sys.platform in ["linux", "darwin"]:
+            settingPath = os.path.join(currentPath, ".settings.json")
+        else:
+            settingPath = os.path.join(currentPath, ".settings.json")
+
+        setting = {"rem_pwd": self.remPwdCheckBox.isChecked(),
+                   "relogin_flag": self.retryCheckBox.isChecked(),
+                   "relogin_times": self.retryTimesSpinBox.value(),
+                   "relogin_check": self.retryCheckSpinBox.value()}
+        if self.remPwdCheckBox.isChecked():
+            setting["usr"] = self.usrLineEdit.text()
+            setting["pwd"] = self.pwdLineEdit.text()
+
+        with open(settingPath, 'w') as userSetting:
+            userSetting.write(json.dumps(setting, sort_keys=True, indent=4))
+
     def _keep_alive(self):
         self.logger("{}: Sending heartbeat package".format(time.strftime("%m-%d %H:%M:%S", time.localtime())))
         try:
@@ -255,6 +300,7 @@ class MainWindow(QtWidgets.QMainWindow):
             if self.retryCheckBox.isChecked():
                 # 启动守护Timer
                 self.retry()
+            self._save_user_config()
         except (DrCOMException, TimeoutException) as e:
             self.logger(e.info)
         else:

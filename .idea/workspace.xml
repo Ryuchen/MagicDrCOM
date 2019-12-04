@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="19af2d1f-3459-4074-9f9d-920fa342ab1a" name="Default Changelist" comment="" />
+    <list default="true" id="19af2d1f-3459-4074-9f9d-920fa342ab1a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/drcom/.settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drcom/gui/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/drcom/gui/window.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,8 +66,8 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test (1)">
-    <configuration name="__main__" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager">
+    <configuration name="MagicDrCOM" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MagicDrCOM" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -76,7 +80,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/drcom/__main__.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/drcom/MagicDrCOM.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -85,118 +89,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="client" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="MagicDrCOM" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/main" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
-        </ENTRIES>
-      </EXTENSION>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main/client.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="MagicDrCOM" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gui-test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gui-test/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="MagicDrCOM" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gui" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gui/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="MagicDrCOM" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gui-test/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.__main__" />
-      <item itemvalue="Python.client" />
-      <item itemvalue="Python.main" />
-      <item itemvalue="Python.test" />
-      <item itemvalue="Python.test (1)" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test (1)" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.__main__" />
-        <item itemvalue="Python.client" />
+        <item itemvalue="Python.MagicDrCOM" />
       </list>
     </recent_temporary>
   </component>
@@ -243,6 +138,7 @@
       <workItem from="1575379025730" duration="454000" />
       <workItem from="1575382984665" duration="107000" />
       <workItem from="1575423104972" duration="19571000" />
+      <workItem from="1575446530525" duration="1281000" />
     </task>
     <servers />
   </component>
@@ -270,6 +166,10 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="880" y="385" key="#Updates/0.0.2560.1440@0.0.2560.1440" timestamp="1575346726222" />
+    <state x="744" y="382" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575447670896">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="744" y="382" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1575447670896" />
     <state x="910" y="494" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog" timestamp="1575347174853">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
@@ -282,29 +182,29 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1018" y="473" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1575446081025" />
-    <state width="2516" height="132" key="GridCell.Tab.0.bottom" timestamp="1575446415463">
+    <state width="2516" height="380" key="GridCell.Tab.0.bottom" timestamp="1575447817581">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.bottom/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074059" />
-    <state width="2516" height="132" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1575446415463" />
+    <state width="2516" height="380" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1575447817581" />
     <state width="1255" height="421" key="GridCell.Tab.0.bottom/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254190" />
-    <state width="2516" height="132" key="GridCell.Tab.0.center" timestamp="1575446415462">
+    <state width="2516" height="380" key="GridCell.Tab.0.center" timestamp="1575447817580">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.center/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074058" />
-    <state width="2516" height="132" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1575446415462" />
+    <state width="2516" height="380" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1575447817580" />
     <state width="1255" height="421" key="GridCell.Tab.0.center/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254189" />
-    <state width="2516" height="132" key="GridCell.Tab.0.left" timestamp="1575446415462">
+    <state width="2516" height="380" key="GridCell.Tab.0.left" timestamp="1575447817579">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.left/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074058" />
-    <state width="2516" height="132" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1575446415462" />
+    <state width="2516" height="380" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1575447817579" />
     <state width="1255" height="421" key="GridCell.Tab.0.left/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254188" />
-    <state width="2516" height="132" key="GridCell.Tab.0.right" timestamp="1575446415463">
+    <state width="2516" height="380" key="GridCell.Tab.0.right" timestamp="1575447817580">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.right/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074059" />
-    <state width="2516" height="132" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1575446415463" />
+    <state width="2516" height="380" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1575447817580" />
     <state width="1255" height="421" key="GridCell.Tab.0.right/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254189" />
     <state x="608" y="299" key="SettingsEditor" timestamp="1575383053307">
       <screen x="0" y="0" width="1920" height="1200" />
@@ -318,6 +218,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MagicDrCOM$client__1_.coverage" NAME="client (1) Coverage Results" MODIFIED="1575093665270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/drcom/main" />
+    <SUITE FILE_PATH="coverage/MagicDrCOM$MagicDrCOM.coverage" NAME="MagicDrCOM Coverage Results" MODIFIED="1575447817573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/drcom" />
     <SUITE FILE_PATH="coverage/MagicDrCOM$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1575098042310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/drcom" />
     <SUITE FILE_PATH="coverage/MagicDrCOM$main.coverage" NAME="main Coverage Results" MODIFIED="1575347193899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui-test" />
     <SUITE FILE_PATH="coverage/MagicDrCOM$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1575445829637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
