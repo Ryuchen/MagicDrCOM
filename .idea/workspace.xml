@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="19af2d1f-3459-4074-9f9d-920fa342ab1a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/drcom/main/tool.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MagicDrCOM.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MagicDrCOM.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/drcom/MagicDrCOM.py" beforeDir="false" afterPath="$PROJECT_DIR$/drcom/MagicDrCOM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drcom/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/drcom/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drcom/gui/control.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/drcom/gui/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/drcom/gui/window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drcom/main/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/drcom/main/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drcom/main/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/drcom/main/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-    </list>
+    <list default="true" id="19af2d1f-3459-4074-9f9d-920fa342ab1a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -256,7 +242,7 @@
       <workItem from="1575377412542" duration="595000" />
       <workItem from="1575379025730" duration="454000" />
       <workItem from="1575382984665" duration="107000" />
-      <workItem from="1575423104972" duration="19506000" />
+      <workItem from="1575423104972" duration="19571000" />
     </task>
     <servers />
   </component>
