@@ -98,4 +98,3 @@ def print_bytes(byte):
                 print(" ", end='')
         print(byte[i:i+16].decode('ascii', 'replace').replace('\n', '^'))
     print("========================================================================")
-

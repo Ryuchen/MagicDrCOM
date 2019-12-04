@@ -1,4 +1,4 @@
-<h1 align="center">MagicDrCOM （基于python3的第三方Dr.COM登录器）</h1>
+<h1 align="center">Magic-Dr.COM （基于 Python3 的第三方 Dr.COM 登录器）</h1>
 
 
 ### 🏠 [个人小栈](https://ryuchen.github.io/)
@@ -49,7 +49,7 @@
         
         # 修改 drcom/configs/settings.py 文件中 PASSWORD 和 USERNAME 字段
         
-        python3 drcom/client.py
+        python3 -m drcom
         ```
 
 ### 📖 使用说明
