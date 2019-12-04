@@ -217,11 +217,11 @@ class MainWindow(QtWidgets.QMainWindow):
         return optionForm
 
     def _load_user_config(self):
-        currentPath = QtCore.QDir.currentPath()
+        currentPath = QtCore.QDir.homePath()
         if sys.platform in ["linux", "darwin"]:
-            settingPath = os.path.join(currentPath, ".settings.json")
+            settingPath = os.path.join(currentPath, ".MagicDrCOM-gui.cfg")
         else:
-            settingPath = os.path.join(currentPath, ".settings.json")
+            settingPath = os.path.join(currentPath, ".MagicDrCOM-gui.cfg")
 
         if not os.path.exists(settingPath):
             return
@@ -237,11 +237,11 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.pwdLineEdit.setText(setting["pwd"])
 
     def _save_user_config(self):
-        currentPath = QtCore.QDir.currentPath()
+        currentPath = QtCore.QDir.homePath()
         if sys.platform in ["linux", "darwin"]:
-            settingPath = os.path.join(currentPath, ".settings.json")
+            settingPath = os.path.join(currentPath, ".MagicDrCOM-gui.cfg")
         else:
-            settingPath = os.path.join(currentPath, ".settings.json")
+            settingPath = os.path.join(currentPath, ".MagicDrCOM-gui.cfg")
 
         setting = {"rem_pwd": self.remPwdCheckBox.isChecked(),
                    "relogin_flag": self.retryCheckBox.isChecked(),
@@ -350,10 +350,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.loginButton.setText("注销")
                 self.loginButton.clicked.disconnect()
                 self.loginButton.clicked.connect(self.logout)
+            QtWidgets.QApplication.processEvents()
 
     def logger(self, msg):
         self.statusBar().clearMessage()
         self.statusBar().showMessage(msg)
+        QtWidgets.QApplication.processEvents()
 
     @staticmethod
     def info(msg):

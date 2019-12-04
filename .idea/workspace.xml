@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19af2d1f-3459-4074-9f9d-920fa342ab1a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/drcom/.settings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/drcom/gui/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/drcom/gui/window.py" afterDir="false" />
     </list>
@@ -138,7 +137,7 @@
       <workItem from="1575379025730" duration="454000" />
       <workItem from="1575382984665" duration="107000" />
       <workItem from="1575423104972" duration="19571000" />
-      <workItem from="1575446530525" duration="1281000" />
+      <workItem from="1575446530525" duration="2161000" />
     </task>
     <servers />
   </component>
@@ -182,29 +181,29 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1018" y="473" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1575446081025" />
-    <state width="2516" height="380" key="GridCell.Tab.0.bottom" timestamp="1575447817581">
+    <state width="2516" height="380" key="GridCell.Tab.0.bottom" timestamp="1575447930756">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.bottom/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074059" />
-    <state width="2516" height="380" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1575447817581" />
+    <state width="2516" height="380" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1575447930756" />
     <state width="1255" height="421" key="GridCell.Tab.0.bottom/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254190" />
-    <state width="2516" height="380" key="GridCell.Tab.0.center" timestamp="1575447817580">
+    <state width="2516" height="380" key="GridCell.Tab.0.center" timestamp="1575447930755">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.center/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074058" />
-    <state width="2516" height="380" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1575447817580" />
+    <state width="2516" height="380" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1575447930755" />
     <state width="1255" height="421" key="GridCell.Tab.0.center/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254189" />
-    <state width="2516" height="380" key="GridCell.Tab.0.left" timestamp="1575447817579">
+    <state width="2516" height="380" key="GridCell.Tab.0.left" timestamp="1575447930754">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.left/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074058" />
-    <state width="2516" height="380" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1575447817579" />
+    <state width="2516" height="380" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1575447930754" />
     <state width="1255" height="421" key="GridCell.Tab.0.left/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254188" />
-    <state width="2516" height="380" key="GridCell.Tab.0.right" timestamp="1575447817580">
+    <state width="2516" height="380" key="GridCell.Tab.0.right" timestamp="1575447930756">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1876" height="104" key="GridCell.Tab.0.right/0.0.1920.1200@0.0.1920.1200" timestamp="1575379074059" />
-    <state width="2516" height="380" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1575447817580" />
+    <state width="2516" height="380" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1575447930756" />
     <state width="1255" height="421" key="GridCell.Tab.0.right/0.23.2560.1417@0.23.2560.1417" timestamp="1575352254189" />
     <state x="608" y="299" key="SettingsEditor" timestamp="1575383053307">
       <screen x="0" y="0" width="1920" height="1200" />
@@ -218,7 +217,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MagicDrCOM$client__1_.coverage" NAME="client (1) Coverage Results" MODIFIED="1575093665270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/drcom/main" />
-    <SUITE FILE_PATH="coverage/MagicDrCOM$MagicDrCOM.coverage" NAME="MagicDrCOM Coverage Results" MODIFIED="1575447817573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/drcom" />
+    <SUITE FILE_PATH="coverage/MagicDrCOM$MagicDrCOM.coverage" NAME="MagicDrCOM Coverage Results" MODIFIED="1575447920499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/drcom" />
     <SUITE FILE_PATH="coverage/MagicDrCOM$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1575098042310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/drcom" />
     <SUITE FILE_PATH="coverage/MagicDrCOM$main.coverage" NAME="main Coverage Results" MODIFIED="1575347193899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui-test" />
     <SUITE FILE_PATH="coverage/MagicDrCOM$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1575445829637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
