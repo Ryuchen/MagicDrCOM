@@ -12,7 +12,7 @@ from drcom.gui.window import MainWindow
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
-    app.setWindowIcon(QtGui.QIcon('../resources/app.ico'))
+    app.setWindowIcon(QtGui.QIcon('./resources/app.ico'))
     windows = MainWindow()
     windows.show()
 

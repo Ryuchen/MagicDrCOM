@@ -127,7 +127,7 @@ class MainWindow(QtWidgets.QMainWindow):
         loginForm.setFixedSize(280, 80)
         loginFormLayout = QtWidgets.QFormLayout()
         loginFormLayout.setMargin(0)
-        loginFormLayout.setContentsMargins(0, 20, 0, 0)
+        loginFormLayout.setContentsMargins(50, 20, 50, 0)
 
         self.usrLineEdit = QtWidgets.QLineEdit()
         self.usrLineEdit.setObjectName("usrLineEdit")
@@ -138,7 +138,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pwdLineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
         loginFormLayout.addRow(self.tr("密码: "), self.pwdLineEdit)
 
-        loginFormLayout.setLabelAlignment(QtGui.Qt.AlignLeft)
+        loginFormLayout.setLabelAlignment(QtGui.Qt.AlignCenter)
         loginForm.setLayout(loginFormLayout)
         return loginForm
 
@@ -155,8 +155,7 @@ class MainWindow(QtWidgets.QMainWindow):
         checkBoxGroup.setObjectName("CheckBoxGroup")
         checkBoxGroupLayout = QtWidgets.QHBoxLayout()
         checkBoxGroupLayout.setMargin(0)
-        checkBoxGroupLayout.setContentsMargins(0, 0, 0, 0)
-        checkBoxGroupLayout.setAlignment(QtGui.Qt.AlignCenter)
+        checkBoxGroupLayout.setAlignment(QtGui.Qt.AlignJustify)
         self.retryCheckBox = QtWidgets.QCheckBox("断线重连")
         self.retryCheckBox.setObjectName("RetryCheckBox")
         checkBoxGroupLayout.addWidget(self.retryCheckBox)
@@ -191,6 +190,7 @@ class MainWindow(QtWidgets.QMainWindow):
         retryTimesLayout = QtWidgets.QHBoxLayout()
         retryTimesLayout.setMargin(4)
         retryTimesLayout.setContentsMargins(0, 0, 0, 0)
+        retryTimesLayout.setAlignment(QtGui.Qt.AlignCenter)
         retryTimesLabel = QtWidgets.QLabel("重试次数")
         retryTimesLabel.setObjectName("RetryTimesLabel")
         retryTimesLayout.addWidget(retryTimesLabel)
