@@ -10,6 +10,7 @@ import time
 import struct
 import socket
 import random
+import threading
 
 from drcom.main.utils import mac
 from drcom.main.utils import hostname
@@ -21,61 +22,37 @@ from drcom.main.utils import clean_socket_buffer
 from drcom.main.logger import Log
 from drcom.main.excepts import DrCOMException
 from drcom.main.excepts import TimeoutException
+from drcom.main.excepts import MagicDrCOMException
 from drcom.configs.settings import *
 
 
 class DrCOMClient(object):
 
-    def __init__(self, usr="", pwd=""):
-        self._usr = usr
-        self._pwd = pwd
-
-        self._num = 0
-        self._key = b'\x00' * 4
+    def __init__(self, usr, pwd):
+        self.usr = usr
+        self.pwd = pwd
 
         self.salt = b""
         self.server_ip = ""
         self.auth_info = b""
 
+        self._interrupt = False
         self.login_flag = False
+        self.alive_flag = False
 
         self.platform = sys.platform
 
-        self._setup()
+        self.__initialise__()
 
     @property
-    def usr(self):
-        return self._usr
+    def interrupt(self):
+        return self._interrupt
 
-    @usr.setter
-    def usr(self, value):
-        self._usr = value
+    @interrupt.setter
+    def interrupt(self, value):
+        self._interrupt = value
 
-    @property
-    def pwd(self):
-        return self._pwd
-
-    @pwd.setter
-    def pwd(self, value):
-        self._pwd = value
-
-    @property
-    def num(self):
-        return self._num
-
-    @num.setter
-    def num(self, value):
-        self._num = value
-
-    @property
-    def key(self):
-        return self._key
-
-    @key.setter
-    def key(self, value):
-        self._key = value
-
-    def _setup(self):
+    def __initialise__(self):
         """
         尝试获取当前主机的主机名称、MAC地址、联网IP地址
         :return:
@@ -93,14 +70,16 @@ class DrCOMClient(object):
             self.ip = ipaddress()
 
         if not self.host_name or not self.mac or not self.ip:
-            raise DrCOMException("[DrCOM.__init__]：Can not fetch NIC info, please raise a issues @ github")
+            Log(logging.ERROR, 10, "[DrCOM.__init__]：无法获取本机的NIC信息，请直接提交到该项目issues")
+            raise DrCOMException("无法获取本机的NIC信息")
 
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         self.socket.settimeout(3)
         try:
             self.socket.bind(("", 61440))
         except socket.error:
-            raise DrCOMException("[DrCOM.__init__]：Can not bind 61440 port，please retry after a while")
+            Log(logging.ERROR, 10, "[DrCOM.__init__]：无法绑定61440端口，请检查是否有其他进程占据了该端口")
+            raise DrCOMException("无法绑定本机61440端口")
 
     def _make_login_package(self):
         """
@@ -240,7 +219,7 @@ class DrCOMClient(object):
         :return:
         """
         last_times = ReTryTimes
-        while last_times > 0:
+        while last_times > 0 and not self.interrupt:
             last_times = last_times - 1
             clean_socket_buffer(self.socket)
             self.socket.sendto(pkg, server)
@@ -253,9 +232,10 @@ class DrCOMClient(object):
             if data and address:
                 return data, address
 
-        exception = TimeoutException("[DrCOM._send_package]：Failure on sending package...")
-        exception.last_pkg = pkg
-        raise exception
+        if self.interrupt:
+            exception = TimeoutException("[DrCOM._send_package]：Failure on sending package...")
+            exception.last_pkg = pkg
+            raise exception
 
     def send_alive_pkg1(self):
         """
@@ -274,16 +254,16 @@ class DrCOMClient(object):
         if data[0] == 0x07:
             Log(logging.DEBUG, 0, "[DrCOM.send_alive_pkg1]：Successful sending heartbeat package type 1...")
         else:
-            # 当收到的数据包没法识别的时候
-            exception = DrCOMException("[DrCOM.send_alive_pkg1]：Receive unknown packages content...")
-            exception.last_pkg = data
-            raise exception
+            # 当收到的数据包没法识别的时候，标记当前状态已经为掉线状态
+            Log(logging.ERROR, 40, "[DrCOM.send_alive_pkg1]：Receive unknown packages content: {}".format(data))
+            self.alive_flag = False
 
     def send_alive_pkg2(self, num, key, cls):
         """
         发送类型二的心跳包
         :return:
         """
+        response = 0
         pkg = self._make_alive_package(num=num, key=key, cls=cls)
 
         data, address = self._send_package(pkg, (self.server_ip, 61440))
@@ -291,12 +271,12 @@ class DrCOMClient(object):
         if data[0] == 0x07:
             Log(logging.DEBUG, 0, "[DrCOM.send_alive_pkg2]：Successful sending heartbeat package 2[{}]...".format(cls))
             response = data[16:20]
-            return response
         else:
-            # 当收到的数据包没法识别的时候
-            exception = DrCOMException("[DrCOM.send_alive_pkg2]：Receive unknown packages content...")
-            exception.last_pkg = data
-            raise exception
+            # 当收到的数据包没法识别的时候，标记当前状态已经为掉线状态
+            Log(logging.ERROR, 50, "[DrCOM.send_alive_pkg2]：Receive unknown packages content: {}".format(data))
+            self.alive_flag = False
+
+        return response
 
     def prepare(self):
         """
@@ -318,12 +298,21 @@ class DrCOMClient(object):
                 Log(logging.DEBUG, 0, "[DrCOM.prepare]：Server IP: {}, Salt: {}".format(self.server_ip, self.salt))
                 return
             else:
-                Log(logging.WARNING, 20, "[DrCOM.prepare]：Receive unknown packages content: {}".format(data))
+                Log(logging.ERROR, 20, "[DrCOM.prepare]：Receive unknown packages content: {}".format(data))
 
         if not self.server_ip or not self.salt:
-            exception = DrCOMException("[DrCOM.prepare]：Cannot find any available server...")
+            exception = DrCOMException("No Available Server...")
             exception.last_pkg = pkg
             raise exception
+
+    def reset(self):
+        """
+        重置所有参数
+        :return:
+        """
+        self.interrupt = False
+        self.login_flag = False
+        self.alive_flag = False
 
     def login(self):
         """
@@ -337,24 +326,38 @@ class DrCOMClient(object):
         Log(logging.DEBUG, 0, "[DrCOM.login]：Receive PKG content: {}".format(data))
         if data[0] == 0x04:
             self.auth_info = data[23:39]
-            # 在这里设置当前为登录状态
+            # 在这里设置当前为登录状态并且也处于在线状态
             self.login_flag = True
-            Log(logging.DEBUG, 0, "[DrCOM.login]：Successfully login to DrCOM Server...")
+            self.alive_flag = True
+            Log(logging.INFO, 0, "[DrCOM.login]：Successfully login to DrCOM Server...")
         elif data[0] == 0x05:
             if len(data) > 32:
                 if data[32] == 0x31:
-                    raise DrCOMException("[DrCOM.login]：Failure on login because the wrong username...")
+                    Log(logging.ERROR, 31, "[DrCOM.login]：Failure on login because the wrong username...")
                 if data[32] == 0x33:
-                    raise DrCOMException("[DrCOM.login]：Failure on login because the wrong password...")
+                    Log(logging.ERROR, 32, "[DrCOM.login]：Failure on login because the wrong password...")
         else:
-            exception = DrCOMException("[DrCOM.login]：Receive unknown packages content...")
-            exception.last_pkg = data
-            raise exception
+            Log(logging.ERROR, 30, "[DrCOM.login]：Receive unknown packages content: {}".format(data))
 
         if not self.login_flag:
-            exception = DrCOMException("[DrCOM.login]：Failure on login to DrCOM...")
+            exception = DrCOMException("Failure on login to DrCOM...")
             exception.last_pkg = pkg
             raise exception
+
+    def keep_alive(self):
+        num = 0
+        key = b'\x00' * 4
+        while self.alive_flag:
+            try:
+                self.send_alive_pkg1()
+                key = self.send_alive_pkg2(num, key, cls=1)
+                key = self.send_alive_pkg2(num, key, cls=3)
+            except TimeoutException as exc:
+                Log(logging.ERROR, 60, "[DrCOM.keep_alive]：" + exc.info)
+                self.alive_flag = False
+                break
+            num = num + 2
+            time.sleep(10)
 
     def logout(self):
         """
@@ -378,9 +381,7 @@ class DrCOMClient(object):
         data, address = self._send_package(pkg, (self.server_ip, 61440))
 
         if data[0:2] != b'\x02\x03':
-            exception = DrCOMException("[DrCOM.logout]：Receive unknown packages content...")
-            exception.last_pkg = data
-            raise exception
+            Log(logging.ERROR, 70, "[DrCOM.login]：Receive unknown packages content: {}".format(data))
 
         # 第三组
         pkg = self._make_logout_package()
@@ -390,11 +391,198 @@ class DrCOMClient(object):
         if data[0] == 0x04:
             self.login_flag = False
         else:
-            exception = DrCOMException("[DrCOM.logout]：Receive unknown packages content...")
-            exception.last_pkg = data
-            raise exception
+            Log(logging.ERROR, 71, "[DrCOM.logout]：Receive unknown packages content: {}".format(data))
 
         if self.login_flag:
-            exception = DrCOMException("[DrCOM.logout]：Failure on logout to DrCOM...")
+            exception = DrCOMException("Failure on logout to DrCOM...")
             exception.last_pkg = pkg
             raise exception
+
+
+class MagicDrCOMClient(object):
+
+    def __init__(self):
+        print("欢迎使用BISTU专版的第三方Dr.COM客户端")
+        print("本项目目前由@Ryuchen进行开发和维护")
+        print("如有任何问题欢迎在本项目的github页面提交issue")
+        print("[https://github.com/Ryuchen/MagicDrCOM/issues]")
+
+        self._usr = ""
+        self._pwd = ""
+        # self._login_flag = False
+        self._alive_check = False
+        self._relogin_flag = ReLoginFlag
+        self._relogin_times = ReLoginTimes
+        self._relogin_check = ReLoginCheck
+
+        try:
+            self._client = DrCOMClient(self._usr, self._pwd)
+        except DrCOMException as exc:
+            Log(logging.ERROR, 10, "[MagicDrCOMClient.__init__]：无法进行初始化：" + exc.info)
+            raise MagicDrCOMException("请检查本机设置之后重试~")
+
+    @property
+    def username(self):
+        return self._usr
+
+    @username.setter
+    def username(self, value):
+        if value == "":
+            raise MagicDrCOMException("账号未填写")
+        self._usr = value
+        self._client.usr = value
+
+    @property
+    def password(self):
+        return self._pwd
+
+    @password.setter
+    def password(self, value):
+        if value == "":
+            raise MagicDrCOMException("密码未填写")
+        self._pwd = value
+        self._client.pwd = value
+
+    # @property
+    # def login_flag(self):
+    #     return self._login_flag
+    #
+    # @login_flag.setter
+    # def login_flag(self, value):
+    #     self._login_flag = value
+
+    @property
+    def relogin_flag(self):
+        return self._relogin_flag
+
+    @relogin_flag.setter
+    def relogin_flag(self, value):
+        self._relogin_flag = value
+
+    @property
+    def relogin_times(self):
+        return self._relogin_times
+
+    @relogin_times.setter
+    def relogin_times(self, value):
+        self._relogin_times = value
+
+    @property
+    def relogin_check(self):
+        return self._relogin_check
+
+    @relogin_check.setter
+    def relogin_check(self, value):
+        self._relogin_check = value
+
+    @property
+    def status(self):
+        if self._client.login_flag:
+            if self._client.alive_flag:
+                return ONLINE
+            else:
+                return DIEOUT
+        else:
+            return OFFLINE
+
+    def _interval_loop(self, period, callback, args):
+        """
+        模拟事件循环，用来循环调用请求网站方法
+        :param period: 间隔时间
+        :param callback: 回调方法
+        :param args: 参数
+        :return:
+        """
+        try:
+            while self._client.login_flag:
+                time.sleep(period)
+                callback(*args)
+        except MagicDrCOMException:
+            Log(logging.ERROR, 120, "[MagicDrCOM._auto_relogin]：超出最大重试次数！")
+
+    def _set_interval(self, period, callback, *args):
+        threading.Thread(target=self._interval_loop, args=(period, callback, args)).start()
+
+    def _daemon(self):
+        """
+        判断网络连通性的方法
+        Host: 114.114.114.114
+        OpenPort: 53/tcp
+        Service: domain (DNS/TCP)
+        """
+        try:
+            socket.setdefaulttimeout(1)
+            socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(("114.114.114.114", 53))
+            Log(logging.INFO, 0, "[MagicDrCOM.check]：Successful connect to network...")
+            return True
+        except socket.error:
+            if self.status == DIEOUT:
+                self.relogin()
+
+    def _login(self):
+        if self._client.usr == "" or self._client.pwd == "":
+            raise MagicDrCOMException("Please enter your username and password...")
+
+        Log(logging.INFO, 0, "[MagicDrCOM.login]：Starting login...")
+        try:
+            self._client.prepare()
+            self._client.login()
+            keep_alive_thread = threading.Thread(target=self._client.keep_alive, args=())
+            keep_alive_thread.start()
+            Log(logging.INFO, 0, "[MagicDrCOM.login]：Successfully login to server...")
+        except (DrCOMException, TimeoutException) as exc:
+            raise MagicDrCOMException("Failure on login: " + exc.info)
+
+    def login(self):
+        """
+        登录方法
+        :return:
+        """
+        self._login()
+        if self.relogin_flag:
+            self._set_interval(self.relogin_check, self._daemon)
+            Log(logging.INFO, 0, "[MagicDrCOM.login]：Starting network check daemon thread...")
+
+    def relogin(self):
+        self.relogin_times -= 1
+        if self.relogin_times >= 0:
+            Log(logging.WARNING, 0, "[MagicDrCOM._auto_relogin]：Starting relogin last %d times..." % self.relogin_times)
+            self._client.logout()
+            time.sleep(5)
+            self._client.prepare()
+            self._client.login()
+        else:
+            raise MagicDrCOMException("Maximum time reties...")
+
+    def logout(self):
+        Log(logging.INFO, 0, "[MagicDrCOM.logout]：Sending logout request to DrCOM Server")
+        try:
+            self._client.logout()
+            self._client.interrupt = True
+            Log(logging.INFO, 0, "[MagicDrCOM.logout]：Successful logout to DrCOM Server")
+        except (DrCOMException, TimeoutException) as exc:
+            raise MagicDrCOMException("Failure on logout: " + exc.info)
+
+    def reset(self):
+        self._client.reset()
+
+
+# 用于命令行模式
+if __name__ == '__main__':
+    try:
+        mc = MagicDrCOMClient()
+        mc.username = USERNAME
+        mc.password = PASSWORD
+    except MagicDrCOMException:
+        sys.exit(1)
+    try:
+        mc.login()
+        user_input = ""
+        while not user_input == "logout":
+            print("登出请输入 logout ")
+            user_input = input()  # 等待输入进行阻塞
+        mc.logout()
+        sys.exit(1)
+    except KeyboardInterrupt as e:
+        mc.logout()
+        sys.exit(1)

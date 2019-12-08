@@ -7,12 +7,13 @@
 
 import sys
 
-from PyQt5.QtWidgets import QApplication
+from PySide2 import QtWidgets, QtGui
+from drcom.gui.window import MainWindow
 
-from drcom.gui.control import MainWindowController
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
+    app.setWindowIcon(QtGui.QIcon('./resources/app.ico'))
+    windows = MainWindow()
+    windows.show()
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    main_window_controller = MainWindowController()
-    main_window_controller.window.show()
     sys.exit(app.exec_())

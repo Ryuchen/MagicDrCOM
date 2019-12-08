@@ -1,4 +1,4 @@
-<h1 align="center">MagicDrCOM （基于python3的第三方Dr.COM登录器）</h1>
+<h1 align="center">Magic-Dr.COM （基于 Python3 的第三方 Dr.COM 登录器）</h1>
 
 
 ### 🏠 [个人小栈](https://ryuchen.github.io/)
@@ -11,7 +11,7 @@
 
 现阶段，因本人[@Ryuchen](https://github.com/Ryuchen)进入北信科进行研究生学习，由于使用Mac电脑进行开发，为了方便登录校园网，所以发现和承接了该项目进行后续开发和维护
 
-本登陆器有图形界面和命令行两种运行模式，图形界面基于PyQt5实现，可跨平台运行，在路由器上可以以命令行模式运行。
+本登陆器有图形界面和命令行两种运行模式，图形界面基于PySide2实现，可跨平台运行，在路由器上可以以命令行模式运行。
 
 ### 📖 安装说明
 
@@ -45,11 +45,11 @@
         ```BASH
         git clone https://github.com/Ryuchen/MagicDrCOM.git
         
-        cd MagicDrCOM
+        cd MagicDrCOM/drcom/
         
         # 修改 drcom/configs/settings.py 文件中 PASSWORD 和 USERNAME 字段
         
-        python3 drcom/client.py
+        python3 main/tool.py
         ```
 
 ### 📖 使用说明
@@ -66,10 +66,10 @@
 # Windos和Linux 使用 app.ico
 
 # MacOS 或者 Linux 下
-pyinstaller -F --icon=./resources/app.icns --noconsole drcom/MagicDrCOM.py
+pyinstaller -F --icon=./resources/app.icns --noconsole MagicDrCOM.py
 
 # Windows PowerShell 下
-pyinstaller -F --icon=.\resources\app.ico --noconsole .\drcom\MagicDrCOM.py
+pyinstaller -F --icon=.\resources\app.ico --noconsole MagicDrCOM.py
 ```
 
 ### ❔ 提交ISSUE

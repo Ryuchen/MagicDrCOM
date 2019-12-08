@@ -101,4 +101,7 @@ ENV/
 .mypy_cache/
 
 # jetbrain
-.idea/*
+.idea/
+
+# vscode
+.vscode/
