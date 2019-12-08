@@ -66,10 +66,10 @@
 # Windos和Linux 使用 app.ico
 
 # MacOS 或者 Linux 下
-pyinstaller -F --icon=./resources/app.icns --noconsole drcom/MagicDrCOM.py
+pyinstaller -F --icon=./resources/app.icns --noconsole MagicDrCOM.py
 
 # Windows PowerShell 下
-pyinstaller -F --icon=.\resources\app.ico --noconsole .\drcom\MagicDrCOM.py
+pyinstaller -F --icon=.\resources\app.ico --noconsole MagicDrCOM.py
 ```
 
 ### ❔ 提交ISSUE
