@@ -64,7 +64,7 @@ jobs:
         shell: bash
         run: |
           pyinstaller -F --icon=./resources/app.ico --noconsole MagicDrCOM.py
-          rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./dist/MagicDrCOM.app ./artifact/
+          rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./dist/MagicDrCOM ./artifact/
 
       - name: Upload artifact
         uses: actions/upload-artifact@master
@@ -97,7 +97,7 @@ jobs:
         shell: bash
         run: |
           pyinstaller -F --icon=./resources/app.ico --noconsole MagicDrCOM.py
-          rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./dist/MagicDrCOM.app ./artifact/
+          rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./dist/MagicDrCOM.exe ./artifact/
 
       - name: Upload artifact
         uses: actions/upload-artifact@master
