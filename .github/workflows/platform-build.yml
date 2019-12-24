@@ -73,7 +73,7 @@ jobs:
           pipenv run pip install pyinstaller
           # UPX compress
           mkdir ./UPX && mkdir ./UPX/dist
-          curl -osL ./UPX/upx-compress ${{ env.UPX_SOURCE }}${{ env.UPX_VERSION }}/upx-${{ env.UPX_VERSION }}-amd64_linux.tar.xz -P ./UPX/
+          curl -sL -o ./UPX/upx-compress ${{ env.UPX_SOURCE }}${{ env.UPX_VERSION }}/upx-${{ env.UPX_VERSION }}-amd64_linux.tar.xz -P ./UPX/
           tar -xvJf ./UPX/upx-compress -C ./UPX/dist/
 
       - name: Assemble artifact
@@ -114,7 +114,7 @@ jobs:
           pipenv run pip install pyinstaller
           # UPX compress
           mkdir ./UPX && mkdir ./UPX/dist
-          curl -osL ./UPX/upx-compress ${{ env.UPX_SOURCE }}${{ env.UPX_VERSION }}/upx-${{ env.UPX_VERSION }}-win64.zip -P ./UPX/
+          curl -sL -o ./UPX/upx-compress ${{ env.UPX_SOURCE }}${{ env.UPX_VERSION }}/upx-${{ env.UPX_VERSION }}-win64.zip -P ./UPX/
           unzip ./UPX/upx-compress -C ./UPX/dist/
 
       - name: Assemble artifact
