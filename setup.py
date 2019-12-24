@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='MagicDrCOM',
-    version='1.1.0',
+    version='1.2.0',
     description='3rd DrCOM client',
     author='ryuchen',
     author_email='chenhaom1993@hotmail.com',
