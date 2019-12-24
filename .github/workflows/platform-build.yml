@@ -5,6 +5,11 @@ on:
     branches:
       - master
 
+env:
+  PYTHON_VERSION: '3.7'
+  UPX_VERSION: '3.95'
+  UPX_SOURCE: 'https://github.com/upx/upx/releases/download/v'${{ UPX_VERSION }}
+
 jobs:
   macOS:
     name: MacOS Platform Build
@@ -18,7 +23,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@master
         with:
-          python-version: '3.7'
+          python-version: ${{ PYTHON_VERSION }}
           architecture: 'x64'
 
       - name: Build environment
@@ -34,7 +39,7 @@ jobs:
         shell: bash
         run: |
           mkdir release
-          pipenv run pyinstaller -F --distpath ./release/ -w -i ./resources/app.icns --clean MagicDrCOM.py
+          pipenv run pyinstaller -F -OO --distpath ./release/ -w -i ./resources/app.icns --clean MagicDrCOM.py
           rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./release/MagicDrCOM.app ./artifact/
 
       - name: Upload artifact
@@ -53,9 +58,9 @@ jobs:
           ref: master
 
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@master
         with:
-          python-version: '3.7'
+          python-version: ${{ PYTHON_VERSION }}
           architecture: 'x64'
 
       - name: Build environment
@@ -66,12 +71,16 @@ jobs:
           pipenv install
           pipenv run pip install -r requirements.txt
           pipenv run pip install pyinstaller
+          # UPX compress
+          mkdir ./UPX && mkdir ./UPX/dist
+          wget `${{ UPX_SOURCE }}/upx-${{ UPX_VERSION }}-amd64_linux.tar.xz` -P ./UPX/
+          tar -xvJf ./UPX/upx-${{ UPX_VERSION }}-amd64_linux.tar.xz -C ./UPX/dist/
 
       - name: Assemble artifact
         shell: bash
         run: |
           mkdir release
-          pipenv run pyinstaller -F --distpath ./release/ -w -i ./resources/app.ico --clean MagicDrCOM.py
+          pipenv run pyinstaller -F -OO --distpath ./release/ -w -i ./resources/app.ico --clean --upx-dir=./UPX/dist/ MagicDrCOM.py
           rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./release/MagicDrCOM ./artifact/
 
       - name: Upload artifact
@@ -90,9 +99,9 @@ jobs:
           ref: master
 
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@master
         with:
-          python-version: '3.7'
+          python-version: ${{ PYTHON_VERSION }}
           architecture: 'x64'
 
       - name: Build environment
@@ -103,12 +112,16 @@ jobs:
           pipenv install
           pipenv run pip install -r requirements.txt
           pipenv run pip install pyinstaller
+          # UPX compress
+          mkdir ./UPX && mkdir ./UPX/dist
+          wget `${{ UPX_SOURCE }}/upx-${{ UPX_VERSION }}-win64.zip` -P ./UPX/
+          unzip upx-${{ UPX_VERSION }}-win64.zip -C ./UPX/dist/
 
       - name: Assemble artifact
         shell: bash
         run: |
           mkdir release
-          pipenv run pyinstaller -F --distpath ./release/ -w -i ./resources/app.ico --clean MagicDrCOM.py
+          pipenv run pyinstaller -F -OO --distpath ./release/ -w -i ./resources/app.ico --clean --upx-dir=./UPX/dist/ MagicDrCOM.py
           rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./release/MagicDrCOM.exe ./artifact/
 
       - name: Upload artifact
