@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           mkdir release
-          pipenv run pyinstaller -F -OO --distpath ./release/ -w -i ./resources/app.icns --clean MagicDrCOM.py
+          PYTHONOPTIMIZE=1 pipenv run pyinstaller -F --distpath ./release/ -w -i ./resources/app.icns --clean MagicDrCOM.py
           rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./release/MagicDrCOM.app ./artifact/
 
       - name: Upload artifact
@@ -80,7 +80,7 @@ jobs:
         shell: bash
         run: |
           mkdir release
-          pipenv run pyinstaller -F -OO --distpath ./release/ -w -i ./resources/app.ico --clean --upx-dir=./UPX/dist/ MagicDrCOM.py
+          PYTHONOPTIMIZE=1 pipenv run pyinstaller -F --distpath ./release/ -w -i ./resources/app.ico --clean --upx-dir=./UPX/dist/ MagicDrCOM.py
           rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./release/MagicDrCOM ./artifact/
 
       - name: Upload artifact
@@ -121,7 +121,7 @@ jobs:
         shell: bash
         run: |
           mkdir release
-          pipenv run pyinstaller -F -OO --distpath ./release/ -w -i ./resources/app.ico --clean --upx-dir=./UPX/dist/ MagicDrCOM.py
+          PYTHONOPTIMIZE=1 pipenv run pyinstaller -F --distpath ./release/ -w -i ./resources/app.ico --clean --upx-dir=./UPX/dist/ MagicDrCOM.py
           rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./release/MagicDrCOM.exe ./artifact/
 
       - name: Upload artifact
