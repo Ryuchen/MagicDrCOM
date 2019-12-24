@@ -40,8 +40,8 @@ jobs:
           path: ./artifact/
 
   Linux:
-    name: Centos Platform Build
-    runs-on: centos-latest
+    name: Linux Platform Build
+    runs-on: ubuntu-latest
     steps:
       - name: Check source code
         uses: actions/checkout@master
@@ -73,8 +73,7 @@ jobs:
           path: ./artifact/
 
   Windows:
-    name: Multiply by 9
-    needs: job_1
+    name: Windows Platform Build
     runs-on: windows-latest
     steps:
       - name: Check source code
