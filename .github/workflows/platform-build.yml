@@ -8,7 +8,7 @@ on:
 env:
   PYTHON_VERSION: '3.7'
   UPX_VERSION: '3.95'
-  UPX_SOURCE: 'https://github.com/upx/upx/releases/download/v'${{ UPX_VERSION }}
+  UPX_SOURCE: `'https://github.com/upx/upx/releases/download/v'${{ UPX_VERSION }}`
 
 jobs:
   macOS:
