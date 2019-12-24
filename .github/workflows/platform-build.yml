@@ -15,6 +15,11 @@ jobs:
         with:
           ref: master
 
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.x'
+
       - name: Build environment
         shell: bash
         run: |
@@ -42,6 +47,11 @@ jobs:
         uses: actions/checkout@master
         with:
           ref: master
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.x'
 
       - name: Build environment
         shell: bash
@@ -71,6 +81,11 @@ jobs:
         uses: actions/checkout@master
         with:
           ref: master
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.x'
 
       - name: Build environment
         shell: bash
