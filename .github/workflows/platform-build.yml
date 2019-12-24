@@ -23,7 +23,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@master
         with:
-          python-version: ${{ PYTHON_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
           architecture: 'x64'
 
       - name: Build environment
@@ -60,7 +60,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@master
         with:
-          python-version: ${{ PYTHON_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
           architecture: 'x64'
 
       - name: Build environment
@@ -73,8 +73,8 @@ jobs:
           pipenv run pip install pyinstaller
           # UPX compress
           mkdir ./UPX && mkdir ./UPX/dist
-          wget `${{ UPX_SOURCE }}${{ UPX_VERSION }}/upx-${{ UPX_VERSION }}-amd64_linux.tar.xz` -P ./UPX/
-          tar -xvJf ./UPX/upx-${{ UPX_VERSION }}-amd64_linux.tar.xz -C ./UPX/dist/
+          wget `${{ env.UPX_SOURCE }}${{ env.UPX_VERSION }}/upx-${{ env.UPX_VERSION }}-amd64_linux.tar.xz` -P ./UPX/
+          tar -xvJf ./UPX/upx-${{ env.UPX_VERSION }}-amd64_linux.tar.xz -C ./UPX/dist/
 
       - name: Assemble artifact
         shell: bash
@@ -101,7 +101,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@master
         with:
-          python-version: ${{ PYTHON_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
           architecture: 'x64'
 
       - name: Build environment
@@ -114,8 +114,8 @@ jobs:
           pipenv run pip install pyinstaller
           # UPX compress
           mkdir ./UPX && mkdir ./UPX/dist
-          wget `${{ UPX_SOURCE }}${{ UPX_VERSION }}/upx-${{ UPX_VERSION }}-win64.zip` -P ./UPX/
-          unzip upx-${{ UPX_VERSION }}-win64.zip -C ./UPX/dist/
+          wget `${{ env.UPX_SOURCE }}${{ env.UPX_VERSION }}/upx-${{ env.UPX_VERSION }}-win64.zip` -P ./UPX/
+          unzip upx-${{ env.UPX_VERSION }}-win64.zip -C ./UPX/dist/
 
       - name: Assemble artifact
         shell: bash
