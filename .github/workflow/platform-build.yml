@@ -1,0 +1,90 @@
+name: Multi Platform Building Jobs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  macOS:
+    name: MacOS Platform Build
+    runs-on: macOS-latest
+    steps:
+      - name: Check source code
+        uses: actions/checkout@master
+        with:
+          ref: master
+
+      - name: Build environment
+        shell: bash
+        run: |
+          pip install -r requirement.txt
+          pip install pyinstaller
+
+      - name: Assemble artifact
+        shell: bash
+        run: |
+          pyinstaller -F --icon=./resources/app.icns --noconsole MagicDrCOM.py
+          rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./dist/MagicDrCOM.app ./artifact/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: macOS platform application
+          path: ./artifact/
+
+  Linux:
+    name: Centos Platform Build
+    runs-on: centos-latest
+    steps:
+      - name: Check source code
+        uses: actions/checkout@master
+        with:
+          ref: master
+
+      - name: Build environment
+        shell: bash
+        run: |
+          pip install -r requirement.txt
+          pip install pyinstaller
+
+      - name: Assemble artifact
+        shell: bash
+        run: |
+          pyinstaller -F --icon=./resources/app.ico --noconsole MagicDrCOM.py
+          rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./dist/MagicDrCOM.app ./artifact/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: linux platform application
+          path: ./artifact/
+
+  Windows:
+    name: Multiply by 9
+    needs: job_1
+    runs-on: windows-latest
+    steps:
+      - name: Check source code
+        uses: actions/checkout@master
+        with:
+          ref: master
+
+      - name: Build environment
+        shell: bash
+        run: |
+          pip install -r requirement.txt
+          pip install pyinstaller
+
+      - name: Assemble artifact
+        shell: bash
+        run: |
+          pyinstaller -F --icon=./resources/app.ico --noconsole MagicDrCOM.py
+          rm -rf ./artifact/ && mkdir -p ./artifact/ && mv ./dist/MagicDrCOM.app ./artifact/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: linux platform application
+          path: ./artifact/
+
