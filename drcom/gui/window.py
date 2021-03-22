@@ -11,9 +11,15 @@ import json
 import time
 import socket
 
+from drcom.main.utils import print_bytes
+
 from drcom.main.client import DrCOMClient
 from drcom.main.excepts import DrCOMException
 from drcom.main.excepts import TimeoutException
+from drcom.main.threads import ClientCheckThreads
+from drcom.main.threads import ClientLoginThreads
+from drcom.main.threads import ClientAliveThreads
+
 from PySide2 import QtCore, QtGui, QtWidgets
 
 
@@ -37,24 +43,40 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
         super().__init__()
+        self.client = DrCOMClient()
+
         self._set_window_UI()
         self._load_user_config()
 
-        self.client = None
-
-        self.alive_flag = False
         self.alive_Timer = QtCore.QTimer()
         self.alive_interval = 10 * 1000
+        self.sending_alive_pkg = False
+
         self.retry_Timer = QtCore.QTimer()
         self.retry_interval = 10 * 1000
 
-        try:
-            self.client = DrCOMClient()
-            self.update()
-        except DrCOMException as e:
-            self.logger("[Magic-Dr.COM::__init__]: {}".format(e.info))
-        else:
-            self.logger("[Magic-Dr.COM::__init__]: Successful initialise...")
+        # 工作线程池
+        self.threads_pool = QtCore.QThreadPool()
+        # 默认线程超时时间设置为10秒
+        self.threads_pool.setExpiryTimeout(10000)
+
+        # 进行客户端初始化
+        self.logger("正在初始化校园网接入准备")
+        QtWidgets.QApplication.processEvents()
+
+    @QtCore.Slot(object)
+    def on_worker_error(self, e):
+        self.logger(e.info)
+        if e.last_pkg:
+            print_bytes(e.last_pkg)
+
+    @QtCore.Slot(object)
+    def on_worker_result(self, result):
+        self.logger(result.msg)
+
+    @QtCore.Slot()
+    def on_sending_alive_pkg(self):
+        self.sending_alive_pkg = False
 
     def _set_window_UI(self):
         self.setObjectName("MainWindow")
@@ -95,7 +117,7 @@ class MainWindow(QtWidgets.QMainWindow):
         descriptionWidgetLayout = QtWidgets.QVBoxLayout()
         descriptionWidgetLayout.addSpacing(8)
         descriptionWidgetLayout.setMargin(4)
-        title = QtWidgets.QLabel("Magic-Dr.COM(锐捷)客户端")
+        title = QtWidgets.QLabel("Magic-Dr.COM客户端")
         title.setObjectName("DescriptionTitle")
         title.setStyleSheet("""
             QLabel#DescriptionTitle {
@@ -208,7 +230,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.loginButton = QtWidgets.QPushButton("登录")
         self.loginButton.setObjectName("LoginButton")
+
         self.loginButton.clicked.connect(self.login)
+
         optionFormLayout.addWidget(self.loginButton)
 
         optionFormLayout.addSpacing(30)
@@ -236,6 +260,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.usrLineEdit.setText(setting["usr"])
                 self.pwdLineEdit.setText(setting["pwd"])
 
+        self.draw(state=0)
+
     def _save_user_config(self):
         currentPath = QtCore.QDir.homePath()
         if sys.platform in ["linux", "darwin"]:
@@ -255,17 +281,14 @@ class MainWindow(QtWidgets.QMainWindow):
             userSetting.write(json.dumps(setting, sort_keys=True, indent=4))
 
     def _keep_alive(self):
-        self.logger("{}: Sending heartbeat package".format(time.strftime("%m-%d %H:%M:%S", time.localtime())))
-        try:
-            self.client.send_alive_pkg1()
-            self.client.key = self.client.send_alive_pkg2(self.client.num, self.client.key, cls=1)
-            self.client.key = self.client.send_alive_pkg2(self.client.num, self.client.key, cls=3)
-        except (TimeoutException, DrCOMException) as e:
-            self.logger(e.info)
-            self.alive_flag = False
-        else:
-            self.alive_flag = True
-        self.client.num = self.client.num + 2
+        if not self.sending_alive_pkg:
+            self.logger("PING Server: {} ".format(time.strftime("%H:%M:%S", time.localtime())))
+            worker = ClientAliveThreads(self.client)
+            worker.setAutoDelete(True)
+            worker.signals.error.connect(self.on_worker_error)
+            worker.signals.state.connect(self.on_sending_alive_pkg)
+            self.threads_pool.start(worker)
+            self.sending_alive_pkg = True
 
     def _retry_login(self):
         """
@@ -285,27 +308,70 @@ class MainWindow(QtWidgets.QMainWindow):
             self.login()
             self.alive_Timer.start(self.alive_interval)
 
+    def draw(self, state: bool):
+        if state:
+            self.usrLineEdit.setEnabled(True)
+            self.pwdLineEdit.setEnabled(True)
+            self.remPwdCheckBox.setEnabled(True)
+            self.retryCheckBox.setEnabled(True)
+            self.retryTimesSpinBox.setEnabled(True)
+            self.retryCheckSpinBox.setEnabled(True)
+        else:
+            self.usrLineEdit.setEnabled(False)
+            self.pwdLineEdit.setEnabled(False)
+            self.remPwdCheckBox.setEnabled(False)
+            self.retryCheckBox.setEnabled(False)
+            self.retryTimesSpinBox.setEnabled(False)
+            self.retryCheckSpinBox.setEnabled(False)
+
+        if self.client.ready_flag:
+            self.loginButton.setEnabled(True)
+            if self.client.login_flag:
+                self.loginButton.setText("注销")
+                self.loginButton.clicked.disconnect()
+                self.loginButton.clicked.connect(self.logout)
+            else:
+                self.loginButton.setText("登录")
+                self.loginButton.clicked.disconnect()
+                self.loginButton.clicked.connect(self.login)
+        else:
+            self.loginButton.setEnabled(False)
+
+    def load(self):
+        worker = ClientCheckThreads(self.client)
+        worker.setAutoDelete(True)
+        worker.signals.error.connect(self.on_worker_error)
+        worker.signals.result.connect(self.on_worker_result)
+        self.threads_pool.start(worker)
+        while self.threads_pool.activeThreadCount() != 0:
+            time.sleep(0.5)
+            QtWidgets.QApplication.processEvents()
+
+        self.draw(state=self.client.ready_flag)
+
     def login(self):
-        if not self.client:
-            self.info("<h4>当前无法进行登录</h4><p>初始化未完成，请重启该程序进行重试~~~</p>")
-            return
         self.client.usr = self.usrLineEdit.text()
         self.client.pwd = self.pwdLineEdit.text()
         try:
-            self.client.prepare()
-            self.client.login()
+            worker = ClientLoginThreads(self.client)
+            worker.setAutoDelete(True)
+            worker.signals.error.connect(self.on_worker_error)
+            worker.signals.result.connect(self.on_worker_result)
+            self.threads_pool.start(worker)
+            while self.threads_pool.activeThreadCount() != 0:
+                time.sleep(0.5)
+                QtWidgets.QApplication.processEvents()
+
+            self.draw(state=0)
             self._keep_alive()
             # 启动心跳Timer
             self.alive()
-            if self.retryCheckBox.isChecked():
-                # 启动守护Timer
-                self.retry()
+            # if self.retryCheckBox.isChecked():
+            #     # 启动守护Timer
+            #     self.retry()
             self._save_user_config()
         except (DrCOMException, TimeoutException) as e:
             self.logger(e.info)
-        else:
-            self.logger("[Magic-Dr.COM::login]: Successful login to server...")
-        self.update()
 
     def alive(self):
         self.alive_Timer.timeout.connect(self._keep_alive)
@@ -316,45 +382,27 @@ class MainWindow(QtWidgets.QMainWindow):
         self.retry_Timer.start(self.retryCheckSpinBox.value() * 1000)
 
     def logout(self):
+        # 第一次清理线程池
+        self.threads_pool.clear()
+        # 把定时器清理掉
         if self.alive_Timer.isActive():
             self.alive_Timer.stop()
         if self.retry_Timer.isActive():
             self.retry_Timer.stop()
+        # 第二次清理线程池
+        self.threads_pool.clear()
+        """以上是为了避免残留线程导致程序退出异常"""
         try:
             self.client.logout()
         except (DrCOMException, TimeoutException) as e:
             self.logger(e.info)
         else:
-            self.logger("[Magic-Dr.COM::login]: Successful logout to server...")
-        self.update()
-
-    def update(self):
-        if self.client:
-            if not self.client.login_flag:
-                self.usrLineEdit.setEnabled(True)
-                self.pwdLineEdit.setEnabled(True)
-                self.remPwdCheckBox.setEnabled(True)
-                self.retryCheckBox.setEnabled(True)
-                self.retryTimesSpinBox.setEnabled(True)
-                self.retryCheckSpinBox.setEnabled(True)
-                self.loginButton.setText("登录")
-                self.loginButton.clicked.disconnect()
-                self.loginButton.clicked.connect(self.login)
-            else:
-                self.usrLineEdit.setEnabled(False)
-                self.pwdLineEdit.setEnabled(False)
-                self.remPwdCheckBox.setEnabled(False)
-                self.retryCheckBox.setEnabled(False)
-                self.retryTimesSpinBox.setEnabled(False)
-                self.retryCheckSpinBox.setEnabled(False)
-                self.loginButton.setText("注销")
-                self.loginButton.clicked.disconnect()
-                self.loginButton.clicked.connect(self.logout)
-            QtWidgets.QApplication.processEvents()
+            self.logger("已经断开与校园网的链接")
+            self.draw(state=1)
 
     def logger(self, msg):
         self.statusBar().clearMessage()
-        self.statusBar().showMessage(msg)
+        self.statusBar().showMessage(f"Magic-Dr.COM:: {msg} ~")
         QtWidgets.QApplication.processEvents()
 
     @staticmethod
@@ -372,6 +420,7 @@ class MainWindow(QtWidgets.QMainWindow):
                                               QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
                                               QtWidgets.QMessageBox.No)
         if reply == QtWidgets.QMessageBox.Yes:
+            self.logout()
             event.accept()
         else:
             event.ignore()

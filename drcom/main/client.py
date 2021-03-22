@@ -24,6 +24,20 @@ from drcom.main.excepts import TimeoutException
 from drcom.configs.settings import *
 
 
+class DrCOMResponse(object):
+
+    def __init__(self):
+        self._msg = ""
+
+    @property
+    def msg(self):
+        return self._msg
+
+    @msg.setter
+    def msg(self, msg):
+        self._msg = msg
+
+
 class DrCOMClient(object):
 
     def __init__(self, usr="", pwd=""):
@@ -37,11 +51,11 @@ class DrCOMClient(object):
         self.server_ip = ""
         self.auth_info = b""
 
+        self.alive_flag = True
+        self.ready_flag = False
         self.login_flag = False
 
         self.platform = sys.platform
-
-        self._setup()
 
     @property
     def usr(self):
@@ -93,14 +107,14 @@ class DrCOMClient(object):
             self.ip = ipaddress()
 
         if not self.host_name or not self.mac or not self.ip:
-            raise DrCOMException("[DrCOM.__init__]：Can not fetch NIC info, please raise a issues @ github")
+            raise DrCOMException("请确保已经接入有线网")
 
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         self.socket.settimeout(3)
         try:
             self.socket.bind(("", 61440))
-        except socket.error:
-            raise DrCOMException("[DrCOM.__init__]：Can not bind 61440 port，please retry after a while")
+        except (OSError, socket.error):
+            raise DrCOMException("检测到重复启动客户端")
 
     def _make_login_package(self):
         """
@@ -303,6 +317,7 @@ class DrCOMClient(object):
         获取服务器IP和Salt
         :return:
         """
+        self._setup()
         random_value = struct.pack("<H", int(time.time() + random.randint(0xF, 0xFF)) % 0xFFFF)
         pkg = b'\x01\x02' + random_value + b'\x0a' + b'\x00' * 15
 
@@ -311,17 +326,17 @@ class DrCOMClient(object):
             data, address = self._send_package(pkg, _)
 
             # 未获取合理IP地址则进行下一个服务器地址尝试
-            Log(logging.DEBUG, 0, "[DrCOM.prepare]：Receive PKG content: {}".format(data))
             if data[0:4] == b'\x02\x02' + random_value:
                 self.server_ip = address[0]
                 self.salt = data[4:8]
-                Log(logging.DEBUG, 0, "[DrCOM.prepare]：Server IP: {}, Salt: {}".format(self.server_ip, self.salt))
-                return
-            else:
-                Log(logging.WARNING, 20, "[DrCOM.prepare]：Receive unknown packages content: {}".format(data))
+
+                self.ready_flag = True
+                res = DrCOMResponse()
+                res.msg = "已做好接入有线网的准备"
+                return res
 
         if not self.server_ip or not self.salt:
-            exception = DrCOMException("[DrCOM.prepare]：Cannot find any available server...")
+            exception = DrCOMException("无法检测到验证服务器")
             exception.last_pkg = pkg
             raise exception
 
@@ -334,26 +349,24 @@ class DrCOMClient(object):
 
         data, address = self._send_package(pkg, (self.server_ip, 61440))
 
-        Log(logging.DEBUG, 0, "[DrCOM.login]：Receive PKG content: {}".format(data))
         if data[0] == 0x04:
             self.auth_info = data[23:39]
             # 在这里设置当前为登录状态
             self.login_flag = True
-            Log(logging.DEBUG, 0, "[DrCOM.login]：Successfully login to DrCOM Server...")
+            res = DrCOMResponse()
+            res.msg = "已经连接上校园网络"
+            return res
+
         elif data[0] == 0x05:
             if len(data) > 32:
                 if data[32] == 0x31:
-                    raise DrCOMException("[DrCOM.login]：Failure on login because the wrong username...")
+                    raise DrCOMException("Failure on login because the wrong username...")
                 if data[32] == 0x33:
-                    raise DrCOMException("[DrCOM.login]：Failure on login because the wrong password...")
-        else:
-            exception = DrCOMException("[DrCOM.login]：Receive unknown packages content...")
-            exception.last_pkg = data
-            raise exception
+                    raise DrCOMException("Failure on login because the wrong password...")
 
-        if not self.login_flag:
-            exception = DrCOMException("[DrCOM.login]：Failure on login to DrCOM...")
-            exception.last_pkg = pkg
+        else:
+            exception = DrCOMException("Receive unknown packages content...")
+            exception.last_pkg = data
             raise exception
 
     def logout(self):
@@ -364,11 +377,6 @@ class DrCOMClient(object):
         第二组似乎是用于告知网关准备登出
         第三组会发送登出的详细信息包括用户名等
         """
-        # 第一组 初步判断是为了判断当前网络是否联通
-        # 发送的数据包的最后两个字节可能有验证功能
-        self.send_alive_pkg1()
-
-        # 第二组 登出准备
         # 与alive_pkg1的最后两个字节相同
         pkg = b'\x01\x03'
         pkg += b'\x00\x00'
@@ -387,14 +395,9 @@ class DrCOMClient(object):
 
         data, address = self._send_package(pkg, (self.server_ip, 61440))
 
-        if data[0] == 0x04:
-            self.login_flag = False
-        else:
+        if data[0] != 0x04:
             exception = DrCOMException("[DrCOM.logout]：Receive unknown packages content...")
             exception.last_pkg = data
             raise exception
 
-        if self.login_flag:
-            exception = DrCOMException("[DrCOM.logout]：Failure on logout to DrCOM...")
-            exception.last_pkg = pkg
-            raise exception
+        self.login_flag = False

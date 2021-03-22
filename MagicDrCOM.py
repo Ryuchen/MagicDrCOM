@@ -15,5 +15,6 @@ if __name__ == "__main__":
     app.setWindowIcon(QtGui.QIcon('./resources/app.ico'))
     windows = MainWindow()
     windows.show()
+    windows.load()
 
     sys.exit(app.exec_())
